@@ -8,13 +8,13 @@ function App() {
 
 
   return (
-    <>
+    <div className='bg-background h-screen'>
     <Header/>
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
     </Routes>
-    </>
+    </div>
   )
 }
 
