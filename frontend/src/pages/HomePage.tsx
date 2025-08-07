@@ -1,10 +1,10 @@
-import React from 'react'
+import RegularPageWrapper from '../components/RegularPageWrapper'
 
 const HomePage = () => {
   return (
-    <div>
-      Homepage
-    </div>
+    <RegularPageWrapper>
+      Home Page
+    </RegularPageWrapper>
   )
 }
 

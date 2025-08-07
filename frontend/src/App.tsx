@@ -2,17 +2,19 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
-import Header from './components/Header'
+import SignupPage from './pages/SignupPage'
+import NotFoundPage from './pages/NotFoundPage'
 
 function App() {
 
 
   return (
     <div className='bg-background h-screen'>
-    <Header/>
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignupPage />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
     </div>
   )
