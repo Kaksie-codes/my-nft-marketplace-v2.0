@@ -107,7 +107,7 @@ const Header: React.FC = () => {
                     <span className='text-sm text-main max-sm:hidden'>Ctrl K</span>
                 </button>
                 {/* Desktop Navigation */}
-                <nav className="hidden md:flex items-center space-x-8">
+                <nav className="hidden lg:flex items-center space-x-8">
                   {navItems.map(item => (
                     <button
                       key={item.name}
@@ -177,7 +177,7 @@ const Header: React.FC = () => {
                   {/* Mobile Menu Button */}
                   <button
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    className="md:hidden p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                    className="lg:hidden p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 relative z-[100000]"
                   >
                     {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
                   </button>
@@ -187,12 +187,12 @@ const Header: React.FC = () => {
 
           {/* Mobile Menu */}
           {isMenuOpen && (
-            <div className="md:hidden border-t border-gray-200 dark:border-gray-700">
+            <div className="absolute top-0 left-0 w-full lg:hidden border-t border-gray-200 dark:border-gray-700 bg-surface">
               <div className="px-2 pt-2 pb-3 space-y-1">
                 {/* Mobile Search */}
-                <div className="px-3 py-2">
+                <div className="px-3 py-2 mt-10">
                   <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none w-[80%]">
                       <Search className="h-4 w-4 text-gray-400" />
                     </div>
                     <input
@@ -200,7 +200,7 @@ const Header: React.FC = () => {
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Search..."
-                      className="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="block w-full max-w-[800px] pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                 </div>
