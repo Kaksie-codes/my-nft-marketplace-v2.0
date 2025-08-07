@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { X, Search, TrendingUp, Clock, Hash } from 'lucide-react';
 
 interface SearchModalProps {
@@ -7,7 +7,14 @@ interface SearchModalProps {
 }
 
 const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
+  const modalRef = useRef<HTMLDivElement>(null);
   const [searchQuery, setSearchQuery] = useState('');
+
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+      onClose();
+    }
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -43,8 +50,10 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4 bg-black/50 backdrop-blur-sm">
-      <div className="relative w-full max-w-2xl bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700">
+    <div 
+      onClick={handleOverlayClick}
+      className="fixed inset-0 z-50 grid place-items-center overflow-y-scroll p-4 bg-black/50 backdrop-blur-sm">
+      <div ref={modalRef} className="relative w-full max-w-2xl bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700">
         <div className="flex items-center gap-4 p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="relative flex-1">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">

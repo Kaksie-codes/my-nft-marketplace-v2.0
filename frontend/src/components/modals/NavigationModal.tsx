@@ -1,5 +1,10 @@
-import React from 'react';
-import { X, ShoppingBag, Trophy, TrendingUp, BookOpen, Users, Star, Zap, Shield, Globe } from 'lucide-react';
+import React, { useRef } from 'react';
+import {
+  X,
+  ShoppingBag,
+  Trophy,
+  BookOpen
+} from 'lucide-react';
 
 interface NavigationModalProps {
   isOpen: boolean;
@@ -8,6 +13,8 @@ interface NavigationModalProps {
 }
 
 const NavigationModal: React.FC<NavigationModalProps> = ({ isOpen, onClose, category }) => {
+  const modalRef = useRef<HTMLDivElement>(null);
+
   if (!isOpen) return null;
 
   const navigationData = {
@@ -56,13 +63,26 @@ const NavigationModal: React.FC<NavigationModalProps> = ({ isOpen, onClose, cate
 
   const CategoryIcon = currentCategory.icon;
 
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4 bg-black/50 backdrop-blur-sm">
-      <div className="relative w-full max-w-4xl bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700">
+    <div
+      className="fixed inset-0 z-50  grid place-items-center p-4 bg-overlay backdrop-blur-sm"
+      onClick={handleOverlayClick}
+    >
+      <div
+        ref={modalRef}
+        className="relative w-full max-w-4xl bg-modal rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
-              <CategoryIcon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+            <div className="w-10 h-10 bg-gray-100 bg-blue-900/30 rounded-lg flex items-center justify-center">
+              <CategoryIcon className="w-5 h-5 text-primary" />
             </div>
             <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
               {currentCategory.title}
@@ -75,7 +95,7 @@ const NavigationModal: React.FC<NavigationModalProps> = ({ isOpen, onClose, cate
             <X size={20} />
           </button>
         </div>
-        
+
         <div className="p-6">
           <div className="grid md:grid-cols-2 gap-4">
             {currentCategory.items.map((item, index) => (
@@ -84,7 +104,7 @@ const NavigationModal: React.FC<NavigationModalProps> = ({ isOpen, onClose, cate
                 href={item.href}
                 className="flex items-start gap-4 p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group"
               >
-                <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 group-hover:scale-125 transition-transform"></div>
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 group-hover:scale-125 transition-transform"></div>
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-900 dark:text-white mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                     {item.name}
