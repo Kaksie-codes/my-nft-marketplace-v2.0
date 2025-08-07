@@ -3,7 +3,7 @@ import RegularPageWrapper from '../components/RegularPageWrapper'
 const HomePage = () => {
   return (
     <RegularPageWrapper>
-      Home Page
+      <h1 className='text-main'>Home Page</h1>
     </RegularPageWrapper>
   )
 }
